@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} 大盤詳細資料 {% endblock %}
+{% block content %}
+<h1 class="text-center">{{ list.date }}的詳細資料</h1>
+    <div class="row placeholders">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>開盤價</th>
+                    <th>最高價</th>
+                    <th>最低價</th>
+                    <th>收盤價</th>
+                    <th>漲跌幅</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ list.open }}</td>
+                    <td>{{ list.high }}</td>
+                    <td>{{ list.low }}</td>
+                    <td>{{ list.close }}</td>
+                    <td>{{ list.pricechange }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

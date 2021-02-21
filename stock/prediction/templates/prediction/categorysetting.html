@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} 記帳本分類設定 {% endblock %}
+{% block content %}
+<h1 class="page-header">分類設定</h1>
+<div class="form-group">
+    <form method="post">
+    {% csrf_token %}
+    {{ form.category }}
+    <input type="submit" value="新增分類">
+    </form>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>分類</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorylist in categorylist %}
+                <tr>
+                    <td>{{ categorylist.category }}</td>
+                    <td><a href="{% url 'prediction:categorydelete' categorylist.id %}">刪除</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

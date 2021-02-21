@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+[dev-packages]
+"django"="3.1.5"
+"pymysql"="0.10.1"
+"python-dotenv"="0.15.0"
+[requires]
+python_version = "3.7"

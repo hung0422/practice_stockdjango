@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">My Project</a>
+        </div>
+    </div>
+</nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="{% url 'prediction:predict' %}">台股預測</a></li>
+                </ul>
+            <br>
+                <ul class="nav nav-sidebar">
+                    <li><a href="{% url 'prediction:bookkeeping' %}">記帳本</a></li>
+                </ul>
+            <br>
+                <ul class="nav nav-sidebar">
+                    <li><a href="{% url 'prediction:categorysetting' %}">記帳本分類設定</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {% block content %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

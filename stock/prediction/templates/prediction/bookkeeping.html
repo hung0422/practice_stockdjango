@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %} 記帳本 {% endblock %}
+{% block content %}
+<!--讓網頁上的date欄位有UI可以快速選取日期-->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $( function() {
+        $( "#id_date" ).datepicker( { dateFormat: 'yy-mm-dd' } );
+    } );
+</script>
+
+<h1 class="page-header">帳務總覽</h1>
+<div class="row placeholders">
+    <div class="col-xs-8 col-sm-4 placeholder">
+        <h3>收入</h3>
+        <span class="text-muted"><h2>{{ income }}</h2></span>
+    </div>
+    <div class="col-xs-8 col-sm-4 placeholder">
+        <h3>支出</h3>
+        <span class="text-muted"><h2><font color="#DF565C">{{ outcome }}</font></h2></span>
+    </div>
+    <div class="col-xs-8 col-sm-4 placeholder">
+        <h3>存款</h3>
+        <span class="text-muted"><h2><font color="#53DF7D">{{ net }}</font></h2></span>
+    </div>
+</div>
+<h3 class="sub-header">新增紀錄</h3>
+<div class="table-responsive">
+    <form method="post">
+        {% csrf_token %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>描述</th>
+                <th>分類</th>
+                <th>金額</th>
+                <th>收支</th>
+                <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>{{ form.date }}</td>
+                <td>{{ form.description }}</td>
+                <td>{{ form.category }}</td>
+                <td>{{ form.cash }}</td>
+                <td>{{ form.balance_type }}</td>
+                <td><input type="submit" value="新增"></td>
+            </tr>
+          </tbody>
+      </table>
+        </form>
+</div>
+<h3 class="sub-header">歷史記錄</h3>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>日期</th>
+                <th>描述</th>
+                <th>分類</th>
+                <th>金額</th>
+                <th>收/支</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in record_list %}
+                <tr>
+                    <td>{{ record.date }}</td>
+                    <td>{{ record.description }}</td>
+                    <td>{{ record.category }}</td>
+                    <td>{{ record.cash }}</td>
+                    <td>{{ record.balance_type }}</td>
+                    <td><a href="{% url 'prediction:bookdelete' record.id %}">刪除</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

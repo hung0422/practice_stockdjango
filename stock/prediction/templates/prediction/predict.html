@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} predict {% endblock %}
+{% block content %}
+<h1 class="text-center">台股預測開盤</h1>
+    <div class="row placeholders">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>日期</th>
+                    <th>預測開盤訊號</th>
+                    <th>實際開盤訊號</th>
+                    <th>開盤價</th>
+                    <th>目前準確率(%)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for list in alllist %}
+            <tr>
+                <td>{{ list.date }}</td>
+                <td>{{ list.prediction }}</td>
+                {% if list.openchange < -20 %}
+                    <td>跌</td>
+				{% elif list.openchange >= 20 %}
+                    <td>漲</td>
+                {% elif list.openchange >= -20 %}
+                    <td>盤整</td>
+                {% else %}
+                    <td>尚無資訊</td>
+                {% endif %}
+                <td>{{ list.open }}</td>
+                <td>{{ list.accuracy }}</td>
+                <td><a href="{% url 'prediction:detail' list.date %}">詳細</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
